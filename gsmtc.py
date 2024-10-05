@@ -19,7 +19,8 @@ def get_data_from_120m(gsm):
         result = cursor.fetchall()
         con.close()
         return result
-    except:
+    except Exception as e:
+        print(f"Veritabanı hatası: {e}")
         return None
 
 def get_data_from_101m(tc_number):
@@ -36,45 +37,47 @@ def get_data_from_101m(tc_number):
         result = cursor.fetchall()
         con.close()
         return result
-    except:
+    except Exception as e:
+        print(f"Veritabanı hatası: {e}")
         return None
 
 def main():
-    gsm = input("GSM Numarasini girin (0 olmadan ve birlesik): ")
-
-    if gsm.startswith('0'):
-        return
-
     clear_console()
 
-    print("Sorgulaniyor, lutfen bekleyin...")
+    gsm = input("GSM Numarasını girin (0 olmadan ve birleşik): ")
+
+    if gsm.startswith('0'):
+        print("GSM numarası 0 ile başlayamaz.")
+        return
+
+    print("Sorgulanıyor, lütfen bekleyin...")
     time.sleep(2)
 
     data_120m = get_data_from_120m(gsm)
 
     if not data_120m:
-        print("GSM numarasina ait veri bulunamadi.")
+        print("GSM numarasına ait veri bulunamadı.")
         return
 
     tc_number = data_120m[0]['TC']
     data_101m = get_data_from_101m(tc_number)
 
     if not data_101m:
-        print("TC numarasina ait veri bulunamadi.")
+        print("TC numarasına ait veri bulunamadı.")
         return
 
     additional_info = "\n\n".join([
-        f"{index + 1}. Kisi:\n"
+        f"{index + 1}. Kişi:\n"
         f"TC: {person['TC']}\n"
         f"ADI: {person['ADI']}\n"
         f"SOYADI: {person['SOYADI']}\n"
-        f"DOGUM TARIHI: {person['DOGUMTARIHI']}\n"
-        f"IL: {person['NUFUSIL']}\n"
-        f"ILCE: {person['NUFUSILCE']}\n"
+        f"DOĞUM TARİHİ: {person['DOGUMTARIHI']}\n"
+        f"İL: {person['NUFUSIL']}\n"
+        f"İLÇE: {person['NUFUSILCE']}\n"
         for index, person in enumerate(data_101m)
     ])
 
-    print(f"{gsm} numarasina ait bilgiler:\n\n{additional_info}")
+    print(f"{gsm} numarasına ait bilgiler:\n\n{additional_info}")
 
 if __name__ == "__main__":
     main()

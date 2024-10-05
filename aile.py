@@ -3,12 +3,15 @@ import os
 import time
 
 def create_db_connection():
-    return mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password='',
-        database='101m'
-    )
+    try:
+        return mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='101m'
+        )
+    except mysql.connector.Error:
+        return None
 
 def clear_console():
     os.system('clear' if os.name != 'nt' else 'cls')
@@ -25,7 +28,7 @@ def fetch_personal_info(tc, cursor):
         f'TC: {result["TC"]}\n'
         f'ADI: {result["ADI"]}\n'
         f'SOYADI: {result["SOYADI"]}\n'
-        f'DOGUM TARİHI: {result["DOGUMTARIHI"]}\n'
+        f'DOGUM TARIHI: {result["DOGUMTARIHI"]}\n'
         f'IL: {result["NUFUSIL"]}\n'
         f'ILCE: {result["NUFUSILCE"]}\n'
         f'ANNE ADI: {result["ANNEADI"]}\n'
@@ -37,14 +40,19 @@ def fetch_personal_info(tc, cursor):
 
 def main():
     clear_console()
-    tc = input("Kisinin TC Kimlik Numarasi: ").strip()
+    tc = input("TC Kimlik Numarasini girin: ").strip()
 
-    if not tc:
-        print("TC Kimlik Numarasi zorunludur.")
-        return
+    con = None
+    cursor = None
 
     try:
+        if not tc:
+            return
+
         con = create_db_connection()
+        if con is None:
+            return
+
         cursor = con.cursor(dictionary=True)
 
         print("Sorgulaniyor, lutfen bekleyin...")
@@ -55,10 +63,6 @@ def main():
         clear_console()
         print(personal_info.strip())
 
-    except mysql.connector.Error as err:
-        print(f"Veritabani hatasi: {err}")
-    except Exception as e:
-        print(f"Bir hata olustu: {e}")
     finally:
         if cursor:
             cursor.close()

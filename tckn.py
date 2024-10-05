@@ -3,7 +3,6 @@ import os
 import time
 
 def create_db_connection():
-    """Veritabani baglantisini olusturur."""
     return mysql.connector.connect(
         host='localhost',
         user='root',
@@ -12,11 +11,9 @@ def create_db_connection():
     )
 
 def clear_console():
-    """Terminal ekranini temizler."""
     os.system('clear' if os.name != 'nt' else 'cls')
 
 def fetch_personal_info(tc, cursor):
-    """Kisinin bilgilerini veritabanindan getirir ve formatlar."""
     query = "SELECT * FROM 101m WHERE TC=%s"
     cursor.execute(query, (tc,))
     result = cursor.fetchone()
@@ -32,7 +29,7 @@ def fetch_personal_info(tc, cursor):
 
 def main():
     clear_console()
-    tc = input("Kisinin TC Kimlik Numarasi: ").strip()
+    tc = input("TC Kimlik Numarasini girin: ").strip()
 
     if not tc:
         print("TC Kimlik Numarasi zorunludur.")
