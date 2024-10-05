@@ -2,6 +2,9 @@ import mysql.connector
 import os
 import time
 
+def clear_console():
+    os.system('clear' if os.name != 'nt' else 'cls')
+
 def query_database(isim, soyisim, dogumtarihi=None, il=None, ilce=None, anneadi=None, annetc=None, babaadi=None, babatc=None):
     try:
         con = mysql.connector.connect(
@@ -65,7 +68,9 @@ def save_results_to_file(results, isim, soyisim):
                 )
 
 def main():
+    clear_console()
     print("Zorunlu kisimlar:")
+    
     isim = input("Adi: ").strip()
     soyisim = input("Soyadi: ").strip()
 
