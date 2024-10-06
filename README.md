@@ -21,8 +21,10 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 ### Gereksinimler
 
 - Python
+- Xampp
+- 101m , 120m , secmen2015 files
 
 ## Lisans
 
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
+Bu proje [fatiqueos](t.me/fatiqueos) tarafından lisanslanmıştır.
 
