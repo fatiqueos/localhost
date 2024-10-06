@@ -56,14 +56,14 @@ def main():
     data_120m = get_data_from_120m(gsm)
 
     if not data_120m:
-        print("GSM numarasına ait veri bulunamadı.")
+        print("GSM nin TC si bulunamadi.")
         return
 
     tc_number = data_120m[0]['TC']
     data_101m = get_data_from_101m(tc_number)
 
     if not data_101m:
-        print("TC numarasına ait veri bulunamadı.")
+        print("GSM nin TC si bulunamadi.")
         return
 
     additional_info = "\n\n".join([

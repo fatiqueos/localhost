@@ -19,7 +19,7 @@ def fetch_personal_info(tc, cursor):
     result = cursor.fetchone()
     
     if not result:
-        return "Kisinin bilgileri bulunamadi."
+        return "TC numarasina ait kisi bulunamadi."
 
     return (
         f'TC: {result["TC"]}\tADI: {result["ADI"]}\tSOYADI: {result["SOYADI"]}\t'

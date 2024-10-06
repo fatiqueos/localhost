@@ -33,7 +33,7 @@ def main():
     data = get_data_from_db(tc)
 
     if not data:
-        print("Sonuc bulunamadi.")
+        print("Kisinin GSM numarasi bulunamadi.")
         return
 
     print(f"\n{tc} TC'sine Ait Telefon Numaralari:")

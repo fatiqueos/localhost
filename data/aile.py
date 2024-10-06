@@ -22,7 +22,7 @@ def fetch_personal_info(tc, cursor):
     result = cursor.fetchone()
     
     if not result:
-        return "Kisinin bilgileri bulunamadi."
+        return "Kisinin aile bilgileri bulunamadi."
 
     return (
         f'TC: {result["TC"]}\n'

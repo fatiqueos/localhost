@@ -1,6 +1,8 @@
 import mysql.connector
 import os
 import time
+import platform
+import subprocess
 
 def clear_console():
     os.system('clear' if os.name != 'nt' else 'cls')
@@ -51,21 +53,38 @@ def query_database(isim, soyisim, dogumtarihi=None, il=None, ilce=None, anneadi=
 
     return result
 
+def get_temp_directory():
+    if platform.system() == 'Windows':
+        return os.getenv('TEMP')
+    else:
+        return '/tmp'
+
 def save_results_to_file(results, isim, soyisim):
-    os.makedirs('result', exist_ok=True)
-    file_path = os.path.join('result', f'{isim}_{soyisim}_sonuclar.txt')
+    temp_dir = get_temp_directory()
+    file_path = os.path.join(temp_dir, f'{isim}_{soyisim}_sonuclar.txt')
 
     with open(file_path, 'w', encoding='utf-8') as f:
+        result_count = len(results)
+        f.write(f"Toplam {result_count} sonuç bulundu.\n\n")
+
         if not results:
             f.write("Sonuc bulunamadi.\n")
         else:
             for row in results:
                 f.write(
                     f'TC: {row["TC"]} | AD: {row["ADI"]} | SOYAD: {row["SOYADI"]} | '
-                    f'D.TAR: {row["DOGUMTARIHI"]} | IL: {row["NUFUSIL"]} | ILCE: {row["NUFUSILCE"]} | '
-                    f'ANNE AD: {row["ANNEADI"]} | ANNE TC: {row["ANNETC"]} | '
-                    f'BABA AD: {row["BABAADI"]} | BABA TC: {row["BABATC"]}\n'
+                    f'DOGUMTARIHI: {row["DOGUMTARIHI"]} | IL: {row["NUFUSIL"]} | ILCE: {row["NUFUSILCE"]} | '
+                    f'ANNE ADI: {row["ANNEADI"]} | ANNE TC: {row["ANNETC"]} | '
+                    f'BABA ADI: {row["BABAADI"]} | BABA TC: {row["BABATC"]}\n'
                 )
+
+    return file_path
+
+def open_file(file_path):
+    if platform.system() == 'Windows':
+        os.startfile(file_path)
+    else:
+        subprocess.call(['xdg-open', file_path])
 
 def main():
     clear_console()
@@ -89,9 +108,11 @@ def main():
 
     results = query_database(isim, soyisim, dogumtarihi, il, ilce, anneadi, annetc, babaadi, babatc)
     
-    save_results_to_file(results, isim, soyisim)
+    file_path = save_results_to_file(results, isim, soyisim)
     
-    print(f"Sonuclar 'result/{isim}_{soyisim}_sonuclar.txt' dosyasina kaydedildi.")
+    print(f"Sonuclar '{file_path}' dosyasina kaydedildi.")
+    
+    open_file(file_path)
 
 if __name__ == "__main__":
     main()
