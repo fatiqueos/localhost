@@ -16,7 +16,7 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 ## Kullanım
 
    ```bash
-python requirements.py
+python setup.py
   ```
   ```
 python localhost.py
@@ -26,8 +26,7 @@ python localhost.py
 - Python
 - Xampp
 - 101m , 120m , secmen2015 files
-- Windows 10 , 11
-- Linux
+- Windows 10 , 11 Operating System or Linux
 
 ## Lisans
 
