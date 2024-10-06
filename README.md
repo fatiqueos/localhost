@@ -26,5 +26,5 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 
 ## Lisans
 
-Bu proje [fatiqueos](t.me/fatiqueos) tarafından lisanslanmıştır.
+Bu proje [fatiqueos](https://t.me/fatiqueos) tarafından lisanslanmıştır.
 
