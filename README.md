@@ -16,6 +16,9 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 ## Kullanım
 
    ```bash
+   python requirements.py
+  ```
+  ```
    python localhost.py
   ```
 ### Gereksinimler
@@ -23,6 +26,8 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 - Python
 - Xampp
 - 101m , 120m , secmen2015 files
+- Windows 10 , 11
+- Linux
 
 ## Lisans
 
