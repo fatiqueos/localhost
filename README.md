@@ -17,10 +17,8 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 
    ```bash
    python localhost.py
-
+  ```
 ### Gereksinimler
-```markdown
-## Gereksinimler
 
 - Python
 
