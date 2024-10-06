@@ -14,6 +14,7 @@ def ana_menu():
         print("5. Sulale Sorgu")
         print("6. TC GSM Sorgu")
         print("7. TC Sorgu")
+        print("8. Sms Bomber")
         print("q. Cikis")
         
         print()
@@ -30,7 +31,8 @@ def ana_menu():
                 '4': "data/sorgu.py",
                 '5': "data/sulale.py",
                 '6': "data/tcgsm.py",
-                '7': "data/tckn.py"
+                '7': "data/tckn.py",
+                '8': "data/smsbomber.py"
             }
 
             if secim in dosya_dict:

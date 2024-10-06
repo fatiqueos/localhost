@@ -9,6 +9,7 @@ def install(package):
 install('mysql-connector-python')
 install('requests')
 install('mysqlclient')
+install('colorama')
 
 source_file = 'data/sulaleapi.php'
 windows_destination = r'C:\xampp\htdocs\sulaleapi.php'
