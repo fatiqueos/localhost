@@ -16,10 +16,10 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 ## Kullanım
 
    ```bash
-   python requirements.py
+python requirements.py
   ```
   ```
-   python localhost.py
+python localhost.py
   ```
 ### Gereksinimler
 
