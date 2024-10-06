@@ -1,6 +1,6 @@
-# Sorgu Scriptleri
+# 101m , 120m , secmen2015 Checker
 
-Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak tanıyan bir konsol menüsü sunar. Kullanıcı, menüdeki seçeneklerden birini seçerek ilgili Python betiğini çalıştırabilir.
+Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak tanıyan bir konsol menüsü sunar.
 
 ## Menü Seçenekleri
 
@@ -15,9 +15,16 @@ Bu proje, kullanıcıların belirli sorgu türlerini gerçekleştirmesine olanak
 
 ## Kullanım
 
-1. Projeyi klonlayın veya indirin.
-2. Terminal veya komut istemcisinde proje dizinine gidin.
-3. Aşağıdaki komutu çalıştırarak menüyü başlatın:
-
    ```bash
    python localhost.py
+
+### Gereksinimler
+```markdown
+## Gereksinimler
+
+- Python
+
+## Lisans
+
+Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
+
