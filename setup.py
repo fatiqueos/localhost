@@ -20,5 +20,4 @@ if os.name == 'nt':
 else:
     shutil.copy(source_file, linux_destination)
 
-# İşlem tamamlandığında terminali kapat
 sys.exit()
