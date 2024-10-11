@@ -1,73 +1,50 @@
 import mysql.connector
 import os
-import time
 
-def create_db_connection():
-    try:
-        return mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='101m'
-        )
-    except mysql.connector.Error:
-        return None
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-def clear_console():
-    os.system('clear' if os.name != 'nt' else 'cls')
-
-def fetch_personal_info(tc, cursor):
-    query = "SELECT * FROM 101m WHERE TC=%s"
-    cursor.execute(query, (tc,))
-    result = cursor.fetchone()
+def fetch_and_send_results(cursor, query, error_message, title):
+    cursor.execute(query)
+    result = cursor.fetchall()
     
     if not result:
-        return "Kisinin aile bilgileri bulunamadi."
-
-    return (
-        f'TC: {result["TC"]}\n'
-        f'ADI: {result["ADI"]}\n'
-        f'SOYADI: {result["SOYADI"]}\n'
-        f'DOGUM TARIHI: {result["DOGUMTARIHI"]}\n'
-        f'IL: {result["NUFUSIL"]}\n'
-        f'ILCE: {result["NUFUSILCE"]}\n'
-        f'ANNE ADI: {result["ANNEADI"]}\n'
-        f'ANNE TC: {result["ANNETC"]}\n'
-        f'BABA ADI: {result["BABAADI"]}\n'
-        f'BABA TC: {result["BABATC"]}\n'
-        f'UYRUK: {result["UYRUK"]}'
-    )
+        return f"{title}: {error_message}\n----------------------------\n"
+    else:
+        bilgiler = ""
+        for row in result:
+            bilgiler += f"TC: {row[1]}\tADI: {row[2]}\tSOYADI: {row[3]}\tDOĞUM TARİHİ: {row[4]}\tİL: {row[5]}\tİLÇE: {row[6]}\n----------------------------\n"
+        return f"{title}: {bilgiler}"
 
 def main():
-    clear_console()
-    tc = input("TC Kimlik Numarasini girin: ").strip()
+    clear_screen()
+    tc = input("Kişinin TC Kimlik Numarasını girin: ")
 
-    con = None
-    cursor = None
+    con = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='101m'
+    )
+    cursor = con.cursor()
 
-    try:
-        if not tc:
-            return
+    all_information = ""
+    
+    all_information += fetch_and_send_results(cursor, f'SELECT * FROM 101m WHERE TC="{tc}"', 'Bulunamadı', 'Kendisi')
+    
+    all_information += fetch_and_send_results(cursor, f'SELECT * FROM 101m WHERE ANNETC="{tc}" OR BABATC="{tc}"', 'Bulunamadı', 'Çocukları')
+    
+    all_information += fetch_and_send_results(cursor, f'SELECT * FROM 101m WHERE TC=(SELECT ANNETC FROM 101m WHERE TC="{tc}")', 'Bulunamadı', 'Annesi')
+    
+    all_information += fetch_and_send_results(cursor, f'SELECT * FROM 101m WHERE TC=(SELECT BABATC FROM 101m WHERE TC="{tc}")', 'Bulunamadı', 'Babası')
+    
+    all_information += fetch_and_send_results(cursor, f'SELECT * FROM 101m WHERE ANNETC=(SELECT ANNETC FROM 101m WHERE TC="{tc}") OR BABATC=(SELECT BABATC FROM 101m WHERE TC="{tc}")', 'Bulunamadı', 'Kardeşleri')
 
-        con = create_db_connection()
-        if con is None:
-            return
+    clear_screen()
+    print(all_information.strip())
 
-        cursor = con.cursor(dictionary=True)
-
-        print("Sorgulaniyor, lutfen bekleyin...")
-        time.sleep(2)
-
-        personal_info = fetch_personal_info(tc, cursor)
-
-        clear_console()
-        print(personal_info.strip())
-
-    finally:
-        if cursor:
-            cursor.close()
-        if con:
-            con.close()
+    cursor.close()
+    con.close()
 
 if __name__ == "__main__":
     main()
