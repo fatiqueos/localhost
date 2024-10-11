@@ -6,7 +6,7 @@ def clear_console():
 
 def ana_menu():
     while True:
-        clear_console()  # Her döngü başlangıcında ekranı temizle
+        clear_console()
         print("\nAşağıdaki işlemlerden birini seç:")
         print("1. Adres Sorgu")
         print("2. Aile Sorgu")
