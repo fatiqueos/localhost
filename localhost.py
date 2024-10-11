@@ -1,11 +1,12 @@
 import os
+import webbrowser
 
 def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def ana_menu():
-    clear_console()
     while True:
+        clear_console()  # Her döngü başlangıcında ekranı temizle
         print("\nAşağıdaki işlemlerden birini seç:")
         print("1. Adres Sorgu")
         print("2. Aile Sorgu")
@@ -15,14 +16,19 @@ def ana_menu():
         print("6. TC GSM Sorgu")
         print("7. TC Sorgu")
         print("8. Sms Bomber")
+        print("9. Projeye Git")
         print("q. Cikis")
         
         print()
-        secim = input("Seciminiz (cikmak için q): ")
+        secim = input("Seciminiz (çıkmak için q): ")
 
         if secim == 'q':
-            print("Cikiliyor...")
+            print("Çıkılıyor...")
             break
+        elif secim == '9':
+            webbrowser.open("https://github.com/fatiqueos/localhost")
+            clear_console()
+            input("Tarayıcınızı kontrol edin. Menüye dönmek için bir tuşa basın...")
         else:
             dosya_dict = {
                 '1': "data/adres.py",
@@ -36,13 +42,12 @@ def ana_menu():
             }
 
             if secim in dosya_dict:
-                print(f"{dosya_dict[secim]} dosyasini calistiriyorsun...")
+                print(f"{dosya_dict[secim]} dosyasını çalıştırıyorsun...")
                 os.system(f'python {dosya_dict[secim]}')
                 
-                input("\nMenüye donmek için bir tuşa basın...")
-                clear_console()
+                input("\nMenüye dönmek için bir tuşa basın...")
             else:
-                print("Gecersiz secim! Lutfen tekrar deneyin.")
+                print("Geçersiz seçim! Lütfen tekrar deneyin.")
 
 if __name__ == "__main__":
     ana_menu()
